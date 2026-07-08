@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>BDJobs — Case Study Overview</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,450;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #EEF2ED;
+    --bg-warm: #E7ECE4;
+    --ink: #142A20;
+    --ink-soft: #43584B;
+    --muted: #6E8073;
+    --brand: #1E7A5A;
+    --brand-deep: #12523B;
+    --brand-tint: #DCEAE1;
+    --amber: #D98E2E;
+    --amber-tint: #F5E4C6;
+    --paper: #FFFFFF;
+    --line: rgba(20,42,32,0.12);
+    --shadow: 0 24px 60px -30px rgba(20,42,32,0.35);
+    --shadow-sm: 0 10px 24px -14px rgba(20,42,32,0.28);
+  }
+
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{
+    margin:0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family:'Inter', sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  .wrap{
+    max-width:1280px;
+    margin:0 auto;
+    padding: 96px 64px 120px;
+  }
+
+  .grid{
+    display:grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 24px;
+  }
+
+  /* ---------- EYEBROW / SECTION LABEL ---------- */
+  .eyebrow{
+    grid-column: 1 / 13;
+    display:flex;
+    align-items:center;
+    gap:16px;
+    margin-bottom: 40px;
+  }
+  .eyebrow .tag{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color: var(--brand-deep);
+    background: var(--brand-tint);
+    padding:6px 12px;
+    border-radius:100px;
+  }
+  .eyebrow .rule{
+    flex:1;
+    height:1px;
+    background: var(--line);
+  }
+  .eyebrow .meta{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    color: var(--muted);
+    letter-spacing:0.06em;
+  }
+
+  /* ---------- HERO ---------- */
+  .hero-title{
+    grid-column: 1 / 10;
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-optical-sizing:auto;
+    font-size: clamp(64px, 8vw, 128px);
+    line-height:0.94;
+    letter-spacing:-0.02em;
+    margin:0;
+    color: var(--ink);
+  }
+  .hero-title em{
+    font-style:italic;
+    font-weight:450;
+    color: var(--brand);
+  }
+  .hero-sub{
+    grid-column: 1 / 9;
+    margin: 28px 0 0;
+    font-family:'Fraunces', serif;
+    font-weight:450;
+    font-style:italic;
+    font-size: clamp(20px, 2vw, 26px);
+    line-height:1.45;
+    color: var(--ink-soft);
+  }
+  .hero-spacer{ grid-column: 1/13; height:64px; }
+
+  /* ---------- ABOUT / STAT SPLIT ---------- */
+  .about-col{
+    grid-column: 1 / 8;
+  }
+  .label-sm{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color: var(--brand-deep);
+    margin:0 0 18px;
+  }
+  .about-col p{
+    font-size:18px;
+    line-height:1.75;
+    color: var(--ink-soft);
+    margin:0 0 20px;
+    max-width:56ch;
+  }
+  .about-col p:last-child{ margin-bottom:0; }
+
+  .stat-col{
+    grid-column: 8 / 13;
+    display:flex;
+    flex-direction:column;
+    gap:16px;
+  }
+  .stat-card{
+    background: var(--paper);
+    border-radius:20px;
+    padding:28px 24px;
+    box-shadow: var(--shadow-sm);
+    border:1px solid var(--line);
+  }
+  .stat-card .num{
+    font-family:'Fraunces', serif;
+    font-size:40px;
+    font-weight:600;
+    color: var(--brand);
+    line-height:1;
+    margin:0 0 8px;
+  }
+  .stat-card .cap{
+    font-size:13px;
+    color: var(--muted);
+    line-height:1.5;
+    margin:0;
+  }
+
+  .section-gap{ grid-column:1/13; height:96px; }
+  .section-gap.sm{ height:56px; }
+
+  /* ---------- GOAL PULLQUOTE ---------- */
+  .goal{
+    grid-column: 2 / 13;
+    border-left: 3px solid var(--brand);
+    padding-left: 40px;
+  }
+  .goal p{
+    font-family:'Fraunces', serif;
+    font-weight:450;
+    font-size: clamp(24px, 2.6vw, 34px);
+    line-height:1.4;
+    color: var(--ink);
+    margin:0;
+    letter-spacing:-0.01em;
+  }
+  .goal p .accent{ color: var(--brand); font-style:italic; }
+
+  /* ---------- PROJECT INFO — TICKET ROW ---------- */
+  .info-head{
+    grid-column: 1/13;
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    margin-bottom:28px;
+  }
+  .info-head h3{
+    font-family:'Fraunces', serif;
+    font-size:28px;
+    font-weight:600;
+    margin:0;
+  }
+  .info-head span{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    color: var(--muted);
+    letter-spacing:0.08em;
+  }
+
+  .ticket-row{
+    grid-column:1/13;
+    display:grid;
+    grid-template-columns: repeat(6, 1fr);
+    background: var(--paper);
+    border-radius:24px;
+    box-shadow: var(--shadow);
+    overflow:hidden;
+    border:1px solid var(--line);
+  }
+  .ticket{
+    position:relative;
+    padding: 30px 22px;
+    border-right: 1px dashed var(--line);
+  }
+  .ticket:last-child{ border-right:none; }
+  .ticket::before{
+    content:"";
+    position:absolute;
+    top:-8px; right:-8px;
+    width:16px; height:16px;
+    background: var(--bg);
+    border-radius:50%;
+  }
+  .ticket::after{
+    content:"";
+    position:absolute;
+    bottom:-8px; right:-8px;
+    width:16px; height:16px;
+    background: var(--bg);
+    border-radius:50%;
+  }
+  .ticket:last-child::before, .ticket:last-child::after{ content:none; }
+  .ticket .k{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:10px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color: var(--amber);
+    margin:0 0 10px;
+  }
+  .ticket .v{
+    font-size:14.5px;
+    line-height:1.5;
+    color: var(--ink);
+    margin:0;
+    font-weight:500;
+  }
+
+  /* ---------- CHALLENGE / VISION ---------- */
+  .cv-card{
+    background: var(--paper);
+    border-radius:22px;
+    padding:36px;
+    box-shadow: var(--shadow-sm);
+    border:1px solid var(--line);
+    height:100%;
+  }
+  .cv-card.challenge{ grid-column: 1 / 7; }
+  .cv-card.vision{ grid-column: 7 / 13; background: var(--brand-deep); border:none; }
+  .cv-card.vision .k, .cv-card.vision h4, .cv-card.vision p{ color:#EAF3EE; }
+  .cv-card.vision p{ color: rgba(234,243,238,0.82); }
+
+  .cv-icon{
+    width:44px; height:44px;
+    border-radius:12px;
+    display:flex; align-items:center; justify-content:center;
+    margin-bottom:22px;
+    background: var(--brand-tint);
+  }
+  .cv-card.vision .cv-icon{ background: rgba(255,255,255,0.12); }
+  .cv-icon svg{ width:22px; height:22px; }
+
+  .cv-card h4{
+    font-family:'Fraunces', serif;
+    font-size:22px;
+    font-weight:600;
+    margin:0 0 14px;
+  }
+  .cv-card p{
+    font-size:15.5px;
+    line-height:1.7;
+    color: var(--ink-soft);
+    margin:0;
+  }
+
+  /* ---------- MOCKUPS ---------- */
+  .mock-copy{
+    grid-column: 1/6;
+    align-self:center;
+  }
+  .mock-copy .label-sm{ margin-bottom:20px; }
+  .mock-copy h3{
+    font-family:'Fraunces', serif;
+    font-size: 34px;
+    font-weight:600;
+    line-height:1.2;
+    margin:0 0 18px;
+  }
+  .mock-copy p{
+    font-size:16px;
+    line-height:1.7;
+    color: var(--ink-soft);
+    max-width:42ch;
+  }
+
+  .mock-stage{
+    grid-column: 6/13;
+    position:relative;
+    min-height:560px;
+  }
+  .phone{
+    position:absolute;
+    width:250px;
+    background:#0F1D17;
+    border-radius:38px;
+    padding:10px;
+    box-shadow: var(--shadow);
+  }
+  .phone .screen{
+    background: var(--paper);
+    border-radius:28px;
+    overflow:hidden;
+    height:520px;
+    display:flex;
+    flex-direction:column;
+  }
+  .phone.p1{ top:0; left:40px; transform: rotate(-4deg); z-index:2; }
+  .phone.p2{ top:70px; left:280px; transform: rotate(3deg); z-index:1; }
+
+  .screen .notch{
+    height:26px; display:flex; align-items:center; justify-content:center;
+  }
+  .screen .notch span{ width:60px; height:5px; border-radius:4px; background:#0F1D17; opacity:0.15; }
+
+  .app-topbar{
+    padding: 4px 18px 14px;
+    display:flex; flex-direction:column; gap:10px;
+  }
+  .app-topbar .hi{ font-size:11px; color:var(--muted); font-family:'IBM Plex Mono', monospace;}
+  .app-topbar .name{ font-family:'Fraunces', serif; font-size:19px; font-weight:600; color:var(--ink);}
+  .app-search{
+    margin:0 18px 14px;
+    background: var(--bg-warm);
+    border-radius:12px;
+    padding:11px 14px;
+    font-size:11.5px;
+    color: var(--muted);
+    display:flex; align-items:center; gap:8px;
+  }
+  .app-body{ flex:1; padding:0 18px; display:flex; flex-direction:column; gap:12px; overflow:hidden; }
+  .job-card{
+    background: var(--paper);
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:13px 14px;
+    box-shadow: 0 6px 14px -10px rgba(20,42,32,0.3);
+  }
+  .job-card .row1{ display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;}
+  .job-card .co{ display:flex; align-items:center; gap:8px; }
+  .job-card .logo{ width:22px; height:22px; border-radius:6px; background: var(--brand-tint); }
+  .job-card .co-name{ font-size:11.5px; font-weight:600; }
+  .job-card .match{ font-family:'IBM Plex Mono', monospace; font-size:9.5px; color:var(--brand); background:var(--brand-tint); padding:2px 7px; border-radius:100px; }
+  .job-card .title{ font-size:13px; font-weight:600; margin:2px 0 4px; }
+  .job-card .tags{ display:flex; gap:6px; }
+  .job-card .tags span{ font-size:9px; color:var(--muted); background:var(--bg-warm); padding:3px 7px; border-radius:6px; }
+
+  .app-nav{
+    margin-top:auto;
+    display:flex; justify-content:space-around;
+    padding:12px 10px 16px;
+    border-top:1px solid var(--line);
+  }
+  .app-nav .dot{ width:20px; height:4px; border-radius:4px; background: var(--line); }
+  .app-nav .dot.active{ background: var(--brand); width:26px; }
+
+  /* tracker screen variant */
+  .track-head{ padding:4px 18px 6px; }
+  .track-head .name{ font-family:'Fraunces', serif; font-size:19px; font-weight:600; }
+  .track-item{
+    margin:0 18px 10px;
+    background:var(--paper);
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:12px 14px;
+  }
+  .track-item .top{ display:flex; justify-content:space-between; margin-bottom:8px; }
+  .track-item .role{ font-size:12.5px; font-weight:600; }
+  .track-item .stage{ font-family:'IBM Plex Mono', monospace; font-size:9px; padding:3px 8px; border-radius:100px; }
+  .stage.interview{ background:var(--amber-tint); color:#8A5A16; }
+  .stage.review{ background:var(--brand-tint); color:var(--brand-deep); }
+  .stage.applied{ background:var(--bg-warm); color:var(--muted); }
+  .track-bar{ height:5px; background:var(--bg-warm); border-radius:4px; overflow:hidden; }
+  .track-bar i{ display:block; height:100%; background:var(--brand); }
+
+  /* ---------- FOOTER CUE ---------- */
+  .cue{
+    grid-column:1/13;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding-top:40px;
+    border-top:1px solid var(--line);
+  }
+  .cue .next{
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    font-size:20px;
+    color: var(--ink-soft);
+  }
+  .cue .arrow{
+    width:48px; height:48px;
+    border-radius:50%;
+    background: var(--brand);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .cue .arrow svg{ width:18px; height:18px; }
+
+  @media (max-width: 900px){
+    .wrap{ padding:56px 24px 80px; }
+    .hero-title{ grid-column:1/13; font-size:56px; }
+    .hero-sub{ grid-column:1/13; }
+    .about-col{ grid-column:1/13; }
+    .stat-col{ grid-column:1/13; flex-direction:row; flex-wrap:wrap; margin-top:24px; }
+    .stat-card{ flex:1 1 45%; }
+    .goal{ grid-column:1/13; padding-left:22px; }
+    .ticket-row{ grid-template-columns: repeat(2, 1fr); }
+    .ticket{ border-right: none; border-bottom:1px dashed var(--line); }
+    .cv-card.challenge, .cv-card.vision{ grid-column:1/13; margin-bottom:20px; }
+    .mock-copy{ grid-column:1/13; margin-bottom:40px; }
+    .mock-stage{ grid-column:1/13; min-height:520px; }
+    .phone{ width:210px; }
+    .phone.p1{ left:6px; }
+    .phone.p2{ left:170px; top:60px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <div class="grid">
+
+    <!-- EYEBROW -->
+    <div class="eyebrow">
+      <span class="tag">Case Study — Section 01</span>
+      <span class="rule"></span>
+      <span class="meta">BDJobs · Mobile App Redesign</span>
+    </div>
+
+    <!-- HERO -->
+    <h1 class="hero-title">Over<em>view</em></h1>
+    <p class="hero-sub">Reimagining Bangladesh's largest job platform with an AI‑driven, user‑centered experience.</p>
+    <div class="hero-spacer"></div>
+
+    <!-- ABOUT + STATS -->
+    <div class="about-col">
+      <p class="label-sm">About BDJobs</p>
+      <p>BDJobs is Bangladesh's largest online job portal, connecting millions of job seekers with employers across diverse industries. Since its launch in 2000, it has become the country's most trusted recruitment platform, offering job listings, resume management, employer services, and career resources through both web and mobile platforms.</p>
+      <p>Despite its strong market position, the current mobile experience presents several usability challenges — outdated navigation, limited personalization, unclear application tracking, and an interface that no longer meets modern user expectations.</p>
+    </div>
+    <div class="stat-col">
+      <div class="stat-card">
+        <p class="num">2000</p>
+        <p class="cap">Founded — over two decades as the country's leading recruitment platform.</p>
+      </div>
+      <div class="stat-card">
+        <p class="num">№ 1</p>
+        <p class="cap">Market position among online job portals in Bangladesh.</p>
+      </div>
+      <div class="stat-card">
+        <p class="num">Millions</p>
+        <p class="cap">Job seekers connected with employers nationwide, every year.</p>
+      </div>
+    </div>
+
+    <div class="section-gap"></div>
+
+    <!-- GOAL -->
+    <div class="goal">
+      <p class="label-sm" style="margin-bottom:16px;">Project Goal</p>
+      <p>Transform the BDJobs mobile experience into a <span class="accent">modern, AI‑powered career platform</span> — improving usability, simplifying critical user journeys, and introducing intelligent features such as personalized job recommendations, AI‑assisted resume creation, application tracking, and career guidance, all while preserving familiarity for existing users.</p>
+    </div>
+
+    <div class="section-gap"></div>
+
+    <!-- PROJECT INFO -->
+    <div class="info-head">
+      <h3>Project Information</h3>
+      <span>REF / BDJ‑MX‑2026</span>
+    </div>
+    <div class="ticket-row">
+      <div class="ticket"><p class="k">Platform</p><p class="v">Mobile App — iOS &amp; Android</p></div>
+      <div class="ticket"><p class="k">Industry</p><p class="v">Recruitment &amp; Career Services</p></div>
+      <div class="ticket"><p class="k">Project Type</p><p class="v">UX Research · Product Design · Redesign</p></div>
+      <div class="ticket"><p class="k">Duration</p><p class="v">8 Weeks</p></div>
+      <div class="ticket"><p class="k">Role</p><p class="v">Lead Product Designer</p></div>
+      <div class="ticket"><p class="k">Tools</p><p class="v">Figma, FigJam, ChatGPT, Forms, Maze, Notion</p></div>
+    </div>
+
+    <div class="section-gap"></div>
+
+    <!-- CHALLENGE / VISION -->
+    <div class="cv-card challenge">
+      <div class="cv-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#1E7A5A" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 0 1 5 0c0 1.6-2.5 2-2.5 4"/><circle cx="12" cy="17" r="0.6" fill="#1E7A5A"/></svg>
+      </div>
+      <h4>Design Challenge</h4>
+      <p>The existing app enables users to search and apply for jobs but lacks a seamless, personalized experience. Users struggle with finding relevant opportunities, managing resumes, tracking applications, and understanding their progress — usability gaps that reduce confidence and add friction to the job search.</p>
+    </div>
+    <div class="cv-card vision">
+      <div class="cv-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#EAF3EE" stroke-width="1.6"><path d="M12 3v3M12 18v3M3 12h3M18 12h3"/><circle cx="12" cy="12" r="5"/></svg>
+      </div>
+      <h4>Design Vision</h4>
+      <p>An intelligent recruitment platform that combines AI with human‑centered design — helping people discover better opportunities, build stronger resumes, receive meaningful career guidance, and confidently manage every stage of their job search.</p>
+    </div>
+
+    <div class="section-gap"></div>
+
+    <!-- MOCKUPS -->
+    <div class="mock-copy">
+      <p class="label-sm">A Glimpse Ahead</p>
+      <h3>Familiar surface, intelligent core.</h3>
+      <p>A personalized job feed with match scoring, and a clear application tracker that shows exactly where every candidacy stands — the two journeys at the heart of this redesign.</p>
+    </div>
+    <div class="mock-stage">
+      <div class="phone p1">
+        <div class="screen">
+          <div class="notch"><span></span></div>
+          <div class="app-topbar">
+            <span class="hi">Good evening</span>
+            <span class="name">Recommended for you</span>
+          </div>
+          <div class="app-search">🔍 Search jobs, companies, skills…</div>
+          <div class="app-body">
+            <div class="job-card">
+              <div class="row1"><div class="co"><span class="logo"></span><span class="co-name">Grameenphone</span></div><span class="match">96% match</span></div>
+              <p class="title">Senior UX Designer</p>
+              <div class="tags"><span>Dhaka</span><span>Full‑time</span><span>Hybrid</span></div>
+            </div>
+            <div class="job-card">
+              <div class="row1"><div class="co"><span class="logo"></span><span class="co-name">bKash</span></div><span class="match">88% match</span></div>
+              <p class="title">Product Manager, Payments</p>
+              <div class="tags"><span>Dhaka</span><span>On‑site</span></div>
+            </div>
+            <div class="job-card">
+              <div class="row1"><div class="co"><span class="logo"></span><span class="co-name">Pathao</span></div><span class="match">81% match</span></div>
+              <p class="title">Growth Marketing Lead</p>
+              <div class="tags"><span>Remote</span><span>Full‑time</span></div>
+            </div>
+          </div>
+          <div class="app-nav">
+            <span class="dot active"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span>
+          </div>
+        </div>
+      </div>
+      <div class="phone p2">
+        <div class="screen">
+          <div class="notch"><span></span></div>
+          <div class="track-head"><span class="name">My Applications</span></div>
+          <div class="track-item">
+            <div class="top"><span class="role">UX Designer — Grameenphone</span><span class="stage interview">Interview</span></div>
+            <div class="track-bar"><i style="width:75%"></i></div>
+          </div>
+          <div class="track-item">
+            <div class="top"><span class="role">PM — bKash</span><span class="stage review">In review</span></div>
+            <div class="track-bar"><i style="width:45%"></i></div>
+          </div>
+          <div class="track-item">
+            <div class="top"><span class="role">Growth Lead — Pathao</span><span class="stage applied">Applied</span></div>
+            <div class="track-bar"><i style="width:15%"></i></div>
+          </div>
+          <div class="track-item">
+            <div class="top"><span class="role">UI Designer — Chaldal</span><span class="stage interview">Interview</span></div>
+            <div class="track-bar"><i style="width:90%"></i></div>
+          </div>
+          <div class="app-nav">
+            <span class="dot"></span><span class="dot active"></span><span class="dot"></span><span class="dot"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-gap sm"></div>
+
+    <!-- FOOTER CUE -->
+    <div class="cue">
+      <span class="next">Continue to Research &amp; Discovery</span>
+      <span class="arrow">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </span>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>
