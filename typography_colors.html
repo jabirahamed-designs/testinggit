@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Typography and Colors</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+  :root{
+    --orange: #FB6138;
+    --deep-blue: #1D2E4C;
+    --neutral-dark: #171717;
+    --neutral-light: #F3F3F3;
+    --clean-white: #FFFFFF;
+    --text-body: #6B7280;
+    --dot: #E3E3E3;
+  }
+
+  *{ box-sizing: border-box; }
+
+  body{
+    margin: 0;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background-color: #FCFCFC;
+    background-image: radial-gradient(var(--dot) 1.4px, transparent 1.4px);
+    background-size: 22px 22px;
+    padding: 64px 80px 100px;
+  }
+
+  .header{
+    text-align: center;
+    max-width: 1200px;
+    margin: 0 auto 64px;
+  }
+
+  h1{
+    font-size: 68px;
+    font-weight: 800;
+    color: var(--neutral-dark);
+    letter-spacing: -1.5px;
+    margin: 0 0 28px;
+  }
+
+  .subtitle{
+    font-size: 21px;
+    line-height: 1.55;
+    color: #6B7280;
+    font-weight: 400;
+    margin: 0 auto;
+    max-width: 980px;
+  }
+
+  .color-row{
+    display: flex;
+    gap: 24px;
+    margin-bottom: 24px;
+  }
+
+  .color-card{
+    flex: 1;
+    height: 340px;
+    border-radius: 24px;
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+  }
+
+  .color-card.bordered{
+    border: 1px solid #E5E5E5;
+  }
+
+  .color-name{
+    font-size: 24px;
+    font-weight: 700;
+    margin: 0 0 4px;
+  }
+
+  .color-label{
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+
+  .color-hex{
+    font-size: 16px;
+    font-weight: 500;
+  }
+
+  /* Card-specific colors */
+  .card-orange{ background: var(--orange); }
+  .card-orange .color-name, .card-orange .color-label, .card-orange .color-hex{ color: #FFFFFF; }
+  .card-orange .color-label{ color: rgba(255,255,255,0.85); }
+
+  .card-deepblue{ background: var(--deep-blue); }
+  .card-deepblue .color-name, .card-deepblue .color-hex{ color: #FFFFFF; }
+  .card-deepblue .color-label{ color: rgba(255,255,255,0.7); }
+
+  .card-neutraldark{ background: var(--neutral-dark); }
+  .card-neutraldark .color-name, .card-neutraldark .color-hex{ color: #FFFFFF; }
+  .card-neutraldark .color-label{ color: rgba(255,255,255,0.6); }
+
+  .card-neutrallight{ background: var(--neutral-light); }
+  .card-neutrallight .color-name, .card-neutrallight .color-hex{ color: #171717; }
+  .card-neutrallight .color-label{ color: #8A8A8A; }
+
+  .card-white{ background: var(--clean-white); }
+  .card-white .color-name, .card-white .color-hex{ color: #171717; }
+  .card-white .color-label{ color: #8A8A8A; }
+
+  /* Font showcase row */
+  .font-row{
+    display: flex;
+    align-items: stretch;
+    gap: 24px;
+  }
+
+  .font-card{
+    flex: 0 0 780px;
+    height: 380px;
+    border-radius: 24px;
+    background: var(--orange);
+    background-image: repeating-linear-gradient(
+      115deg,
+      rgba(255,255,255,0.07) 0px,
+      rgba(255,255,255,0.07) 40px,
+      transparent 40px,
+      transparent 80px
+    );
+    display: flex;
+    align-items: center;
+    padding: 0 48px;
+    gap: 60px;
+  }
+
+  .font-label{
+    font-size: 26px;
+    font-weight: 700;
+    color: #FFFFFF;
+    white-space: nowrap;
+  }
+
+  .font-sample{
+    font-size: 28px;
+    font-weight: 600;
+    color: #FFFFFF;
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  .font-meta{
+    display: flex;
+    align-items: center;
+    gap: 90px;
+    padding-left: 40px;
+  }
+
+  .font-meta .type-label{
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--neutral-dark);
+  }
+
+  .weight-list{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-size: 20px;
+    color: var(--deep-blue);
+  }
+
+  .weight-list .regular{ font-weight: 400; }
+  .weight-list .semibold{ font-weight: 600; }
+  .weight-list .bold{ font-weight: 700; }
+
+</style>
+</head>
+<body>
+
+  <div class="header">
+    <h1>Typography and Colors</h1>
+    <p class="subtitle">
+      The visual style uses the readable SF Pro font and a thoughtful color palette.
+      This creates a clear, modern, and intuitive interface designed for calm
+      interaction and easy information access.
+    </p>
+  </div>
+
+  <div class="color-row">
+    <div class="color-card card-orange">
+      <div>
+        <div class="color-name">Orange</div>
+        <div class="color-label">PRIMARY COLOR</div>
+      </div>
+      <div class="color-hex">HEX #FB6138</div>
+    </div>
+
+    <div class="color-card card-deepblue">
+      <div>
+        <div class="color-name">Deep Blue</div>
+        <div class="color-label">SECONDARY COLOR</div>
+      </div>
+      <div class="color-hex">HEX #1D2E4C</div>
+    </div>
+
+    <div class="color-card card-neutraldark">
+      <div>
+        <div class="color-name">Neutral</div>
+        <div class="color-label">CONTENT COLOR</div>
+      </div>
+      <div class="color-hex">HEX #171717</div>
+    </div>
+
+    <div class="color-card card-neutrallight bordered">
+      <div>
+        <div class="color-name">Neutral</div>
+        <div class="color-label">SURFACE COLOR 2</div>
+      </div>
+      <div class="color-hex">HEX #F3F3F3</div>
+    </div>
+
+    <div class="color-card card-white bordered">
+      <div>
+        <div class="color-name">Clean White</div>
+        <div class="color-label">SURFACE COLOR 1</div>
+      </div>
+      <div class="color-hex">HEX #FFFFFF</div>
+    </div>
+  </div>
+
+  <div class="font-row">
+    <div class="font-card">
+      <div class="font-label">Main Font</div>
+      <p class="font-sample">abcdefghijklmno<br>pqrstuvwxyz<br>124567890</p>
+    </div>
+
+    <div class="font-meta">
+      <div class="type-label">Sans-Serif</div>
+      <div class="weight-list">
+        <div class="regular">Regular</div>
+        <div class="semibold">SemiBold</div>
+        <div class="bold">Bold</div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
