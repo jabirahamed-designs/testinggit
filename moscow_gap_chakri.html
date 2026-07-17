@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>MoSCoW — New Services &amp; Feature Gaps (Chakri / Bdjobs)</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,700;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap');
+
+  :root{
+    --pink: #C81F6E;
+    --pink-blush: #F7E3ED;
+    --indigo: #4F46E5;
+    --indigo-blush: #ECEBFC;
+    --gold: #B5860B;
+    --gold-blush: #FBF1DC;
+    --ink: #15110F;
+    --body: #57534E;
+    --cream: #FBF8F6;
+    --hairline: #E9DFDD;
+    --gray: #9A968F;
+  }
+
+  *{ box-sizing: border-box; }
+
+  body{
+    margin: 0;
+    background: #4B4B4B;
+    font-family: 'Inter', sans-serif;
+    padding: 48px 24px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .page{
+    width: 980px;
+    background: var(--cream);
+    padding: 56px 56px 64px;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.35);
+  }
+
+  .eyebrow{
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11.5px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    color: var(--pink);
+    text-transform: uppercase;
+    margin-bottom: 18px;
+  }
+  .eyebrow::before{
+    content: "";
+    width: 22px;
+    height: 1.5px;
+    background: var(--pink);
+  }
+
+  h1{
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 500;
+    font-size: 42px;
+    color: var(--ink);
+    margin: 0 0 10px;
+  }
+
+  .sub{
+    font-size: 15px;
+    color: var(--body);
+    margin: 0 0 40px;
+    max-width: 640px;
+    line-height: 1.6;
+  }
+
+  table{
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+  }
+
+  thead th{
+    text-align: left;
+    padding: 0 16px 16px 0;
+    border-bottom: 2px solid var(--ink);
+    width: 33.33%;
+  }
+
+  .col-tag{
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 19px;
+    color: var(--ink);
+    margin-bottom: 4px;
+  }
+
+  .dot{
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .dot.must{ background: var(--pink); }
+  .dot.should{ background: var(--gold); }
+  .dot.could{ background: var(--indigo); }
+
+  .col-desc{
+    display: block;
+    font-size: 11px;
+    font-weight: 500;
+    font-style: italic;
+    color: var(--gray);
+  }
+
+  tbody td{
+    vertical-align: top;
+    padding: 14px 16px 14px 0;
+    border-bottom: 1px solid var(--hairline);
+    font-size: 13.5px;
+    line-height: 1.5;
+  }
+
+  .item{
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .item-bullet{
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    margin-top: 7px;
+    flex-shrink: 0;
+  }
+  .must .item-bullet{ background: var(--pink); }
+  .should .item-bullet{ background: var(--gold); }
+  .could .item-bullet{ background: var(--indigo); }
+
+  .item-name{
+    font-weight: 600;
+    color: var(--ink);
+    display: block;
+  }
+  .item-note{
+    font-size: 12px;
+    color: var(--gray);
+    display: block;
+    margin-top: 2px;
+  }
+
+  .empty-cell{
+    color: transparent;
+  }
+
+  .footnote{
+    margin-top: 36px;
+    padding-top: 20px;
+    border-top: 1px solid var(--hairline);
+    font-size: 12.5px;
+    color: var(--gray);
+    line-height: 1.6;
+  }
+  .footnote strong{ color: var(--ink); }
+
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <div class="eyebrow">Chakri · Bdjobs Redesign</div>
+  <h1>Feature Gap — MoSCoW</h1>
+  <p class="sub">New services and capabilities the redesign introduces that don't exist in the current Bdjobs product, prioritized by how critical each is to the relaunch.</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>
+          <span class="col-tag"><span class="dot must"></span>Must Have</span>
+          <span class="col-desc">Critical gaps in current Bdjobs — non-negotiable for relaunch</span>
+        </th>
+        <th>
+          <span class="col-tag"><span class="dot should"></span>Should Have</span>
+          <span class="col-desc">Important, adds real value, not launch-blocking</span>
+        </th>
+        <th>
+          <span class="col-tag"><span class="dot could"></span>Could Have</span>
+          <span class="col-desc">Nice-to-have extras, lower priority</span>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="must">
+          <div class="item">
+            <span class="item-bullet"></span>
+            <span>
+              <span class="item-name">Modern, simplified navigation</span>
+              <span class="item-note">Current Bdjobs IA is outdated and cluttered</span>
+            </span>
+          </div>
+        </td>
+        <td class="should">
+          <div class="item">
+            <span class="item-bullet"></span>
+            <span>
+              <span class="item-name">AI-powered job matching</span>
+              <span class="item-note">Not present in existing Bdjobs at all</span>
+            </span>
+          </div>
+        </td>
+        <td class="could">
+          <div class="item">
+            <span class="item-bullet"></span>
+            <span>
+              <span class="item-name">AI career-path suggestions</span>
+              <span class="item-note">Long-term engagement feature, not core to job search</span>
+            </span>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td class="must">
+          <div class="item">
+            <span class="item-bullet"></span>
+            <span>
+              <span class="item-name">Real-time application status tracking</span>
+              <span class="item-note">Existing product gives no visibility after applying</span>
+            </span>
+          </div>
+        </td>
+        <td class="should">
+          <div class="item">
+            <span class="item-bullet"></span>
+            <span>
+              <span class="item-name">Resume builder with templates</span>
+              <span class="item-note">Old Bdjobs only allows raw file upload</span>
+            </span>
+          </div>
+        </td>
+        <td class="could">
+          <div class="item">
+            <span class="item-bullet"></span>
+            <span>
+              <span class="item-name">One-tap smart apply</span>
+              <span class="item-note">Convenience layer on top of existing apply flow</span>
+            </span>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td class="must">
+          <div class="item">
+            <span class="item-bullet"></span>
+            <span>
+              <span class="item-name">Unified profile &amp; resume management</span>
+              <span class="item-note">Currently fragmented across disconnected forms</span>
+            </span>
+          </div>
+        </td>
+        <td class="should">
+          <div class="item">
+            <span class="item-bullet"></span>
+            <span>
+              <span class="item-name">Saved searches &amp; job alerts</span>
+              <span class="item-note">No proactive alerting exists in the current app</span>
+            </span>
+          </div>
+        </td>
+        <td class="could">
+          <div class="item">
+            <span class="item-bullet"></span>
+            <span>
+              <span class="item-name">Salary insight &amp; negotiation benchmarks</span>
+              <span class="item-note">Adds value but not expected by users today</span>
+            </span>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td class="must">
+          <div class="item">
+            <span class="item-bullet"></span>
+            <span>
+              <span class="item-name">Mobile-first responsive experience</span>
+              <span class="item-note">Old platform is a poorly adapted desktop layout</span>
+            </span>
+          </div>
+        </td>
+        <td class="should">
+          <div class="item">
+            <span class="item-bullet"></span>
+            <span>
+              <span class="item-name">Employer profile pages (culture, reviews)</span>
+              <span class="item-note">Existing listings show almost no company context</span>
+            </span>
+          </div>
+        </td>
+        <td class="could">
+          <div class="item">
+            <span class="item-bullet"></span>
+            <span>
+              <span class="item-name">Video resume / intro upload</span>
+              <span class="item-note">Differentiator, but not something users are asking for</span>
+            </span>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td class="must">
+          <div class="item">
+            <span class="item-bullet"></span>
+            <span>
+              <span class="item-name">Push &amp; email notifications</span>
+              <span class="item-note">Current product has no reliable update channel</span>
+            </span>
+          </div>
+        </td>
+        <td class="should">
+          <div class="item">
+            <span class="item-bullet"></span>
+            <span>
+              <span class="item-name">In-app chat with recruiters</span>
+              <span class="item-note">All contact today happens off-platform</span>
+            </span>
+          </div>
+        </td>
+        <td class="could">
+          <div class="item">
+            <span class="item-bullet"></span>
+            <span>
+              <span class="item-name">Skill assessment badges</span>
+              <span class="item-note">Differentiator for credibility, not core to applying</span>
+            </span>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td class="must">
+          <div class="item">
+            <span class="item-bullet"></span>
+            <span>
+              <span class="item-name">Personalized job recommendations</span>
+              <span class="item-note">Current feed is unsorted/unfiltered listings only</span>
+            </span>
+          </div>
+        </td>
+        <td class="should">
+          <div class="item">
+            <span class="item-bullet"></span>
+            <span>
+              <span class="item-name">AI resume feedback &amp; optimization</span>
+              <span class="item-note">New guidance layer with no equivalent today</span>
+            </span>
+          </div>
+        </td>
+        <td class="could">
+          <div class="item">
+            <span class="item-bullet"></span>
+            <span>
+              <span class="item-name">Community / discussion forum</span>
+              <span class="item-note">Adds engagement but outside core job-search job-to-be-done</span>
+            </span>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="footnote">
+    <strong>Note —</strong> This list covers only <strong>new services/features</strong> introduced by the Chakri redesign that have no equivalent in the current Bdjobs product — it does not re-list existing functionality that's simply being visually refreshed.
+  </div>
+
+</div>
+
+</body>
+</html>
