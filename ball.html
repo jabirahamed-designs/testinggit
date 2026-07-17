@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tilt Ball</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      overflow: hidden;
+      background: #111;
+      width: 100vw;
+      height: 100vh;
+    }
+
+    #ball {
+      position: absolute;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: #00d4ff;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      box-shadow: 0 0 25px rgba(0, 212, 255, .7);
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="ball"></div>
+
+  <script>
+
+    const ball = document.getElementById("ball");
+
+    let x = window.innerWidth / 2;
+    let y = window.innerHeight / 2;
+
+    const radius = 30;
+
+    function moveBall(beta, gamma) {
+
+      // gamma = left/right
+      // beta = forward/back
+
+      const sensitivity = 4;
+
+      x = window.innerWidth / 2 + gamma * sensitivity;
+      y = window.innerHeight / 2 + beta * sensitivity;
+
+      x = Math.max(radius, Math.min(window.innerWidth - radius, x));
+      y = Math.max(radius, Math.min(window.innerHeight - radius, y));
+
+      ball.style.left = x + "px";
+      ball.style.top = y + "px";
+    }
+
+    function enableMotion() {
+
+      if (
+        typeof DeviceOrientationEvent !== "undefined" &&
+        typeof DeviceOrientationEvent.requestPermission === "function"
+      ) {
+
+        DeviceOrientationEvent.requestPermission()
+          .then(response => {
+            if (response === "granted") {
+              window.addEventListener("deviceorientation", handleOrientation);
+            }
+          });
+
+      } else {
+        window.addEventListener("deviceorientation", handleOrientation);
+      }
+
+    }
+
+    function handleOrientation(event) {
+
+      let beta = event.beta || 0;
+      let gamma = event.gamma || 0;
+
+      moveBall(beta, gamma);
+
+    }
+
+    // Enable after first tap (required on iPhone)
+    document.body.addEventListener("click", enableMotion, { once: true });
+
+  </script>
+
+</body>
+
+</html>
