@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Build Resume with AI — Chat Complete</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --primary:#BF298D;
+    --primary-hover:#AC257F;
+    --primary-tint:#F9EAF4;
+    --primary-tint-2:#EBBDDC;
+    --secondary:#4F46E5;
+    --secondary-tint:#EDECFD;
+    --linkedin:#0A66C2;
+    --linkedin-tint:#E8F1FB;
+    --bg:#F5F4F8;
+    --surface:#FFFFFF;
+    --surface-sunken:#FAF9FC;
+    --text-primary:#16141C;
+    --text-secondary:#6C6976;
+    --text-tertiary:#A5A2AD;
+    --border:#EDEBF1;
+    --success:#158A43;
+    --success-tint:#E5F5EB;
+    --radius-lg:20px;
+    --radius-md:14px;
+    --radius-sm:10px;
+    --radius-pill:999px;
+    --shadow-sm:0 1px 2px rgba(22,20,28,0.04), 0 2px 8px rgba(22,20,28,0.05);
+    --shadow-lg:0 12px 32px rgba(22,20,28,0.14);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html,body{background:#E7E5EC; font-family:'Inter',sans-serif;}
+  ::-webkit-scrollbar{display:none;}
+  *{scrollbar-width:none;}
+
+  .canvas{min-height:100vh; display:flex; align-items:flex-start; justify-content:center; padding:40px 16px;}
+  .phone{width:390px; max-width:100%; background:#000; border-radius:48px; padding:12px; box-shadow:var(--shadow-lg);}
+  .screen{background:var(--bg); border-radius:38px; overflow:hidden; position:relative; height:844px; display:flex; flex-direction:column;}
+
+  .statusbar{display:flex; justify-content:space-between; align-items:center; padding:16px 24px 4px; font-family:'Plus Jakarta Sans'; font-weight:700; font-size:15px; color:var(--text-primary); background:var(--surface); flex-shrink:0;}
+  .statusbar .icons{display:flex; gap:5px; align-items:center;}
+
+  .topbar{background:var(--surface); padding:8px 20px 14px; border-bottom:1px solid var(--border); flex-shrink:0;}
+  .topbar-row{display:flex; align-items:center; gap:12px;}
+  .icon-btn{width:38px; height:38px; border-radius:var(--radius-pill); background:var(--surface-sunken); border:1px solid var(--border); display:flex; align-items:center; justify-content:center; color:var(--text-primary); flex-shrink:0;}
+  .topbar-title{display:flex; align-items:center; gap:7px; font-family:'Plus Jakarta Sans'; font-weight:800; font-size:16.5px; color:var(--text-primary);}
+  .ai-badge{display:flex; align-items:center; gap:4px; background:var(--secondary-tint); color:var(--secondary); font-size:10.5px; font-weight:700; padding:3px 9px; border-radius:var(--radius-pill);}
+  .topbar-sub{font-size:11.5px; color:var(--text-secondary); margin-top:5px; line-height:1.4; padding-left:50px;}
+
+  .chat-area{flex:1; overflow-y:auto; padding:18px 16px;}
+
+  .linkedin-card{background:var(--linkedin-tint); border:1px solid #CFE1F5; border-radius:var(--radius-lg); padding:14px 16px; margin-bottom:18px; display:flex; align-items:center; gap:11px;}
+  .li-icon{width:32px; height:32px; border-radius:9px; background:var(--linkedin); display:flex; align-items:center; justify-content:center; flex-shrink:0;}
+  .linkedin-card .t{font-family:'Plus Jakarta Sans'; font-weight:700; font-size:12.5px; color:var(--text-primary);}
+  .linkedin-card .s{font-size:10.5px; color:var(--text-secondary); margin-top:1px;}
+  .linkedin-check{margin-left:auto; width:22px; height:22px; border-radius:50%; background:var(--success); display:flex; align-items:center; justify-content:center; flex-shrink:0;}
+
+  .or-divider{display:flex; align-items:center; gap:10px; margin-bottom:18px; color:var(--text-tertiary); font-size:11.5px; font-weight:600;}
+  .or-divider::before, .or-divider::after{content:''; flex:1; height:1px; background:var(--border);}
+
+  .msg-row{display:flex; gap:9px; margin-bottom:14px; align-items:flex-end;}
+  .msg-row.user{flex-direction:row-reverse;}
+  .avatar-ai{width:28px; height:28px; border-radius:9px; background:var(--secondary); display:flex; align-items:center; justify-content:center; flex-shrink:0;}
+  .avatar-user{width:28px; height:28px; border-radius:50%; background:var(--primary-tint-2); color:var(--primary-active); display:flex; align-items:center; justify-content:center; flex-shrink:0; font-family:'Plus Jakarta Sans'; font-weight:700; font-size:11px;}
+  .bubble{max-width:76%; padding:11px 14px; border-radius:16px; font-size:13px; line-height:1.5;}
+  .bubble.ai{background:var(--surface); color:var(--text-primary); border-bottom-left-radius:5px; box-shadow:var(--shadow-sm);}
+  .bubble.user{background:var(--primary); color:#fff; border-bottom-right-radius:5px;}
+
+  .chip-echo{display:flex; flex-wrap:wrap; gap:6px; margin:2px 0 14px 37px;}
+  .chip-echo span{font-size:11.5px; font-weight:600; background:var(--surface); border:1px solid var(--border); padding:6px 11px; border-radius:var(--radius-pill); color:var(--text-primary);}
+
+  .result-card{
+    background:linear-gradient(160deg,var(--success-tint) 0%, #EFFAF3 100%);
+    border:1px solid #BEE6CC; border-radius:var(--radius-lg); padding:18px; margin:6px 0 14px 37px;
+  }
+  .result-top{display:flex; align-items:center; gap:10px; margin-bottom:12px;}
+  .result-ic{width:36px; height:36px; border-radius:50%; background:var(--success); display:flex; align-items:center; justify-content:center; flex-shrink:0;}
+  .result-card h3{font-family:'Plus Jakarta Sans'; font-weight:700; font-size:14px; color:var(--text-primary);}
+  .result-card span{font-size:11.5px; color:var(--text-secondary); display:block; margin-top:1px;}
+  .result-stats{display:flex; gap:8px; margin-bottom:14px;}
+  .r-stat{flex:1; background:#fff; border-radius:var(--radius-sm); padding:10px; text-align:center;}
+  .r-stat .v{font-family:'DM Mono'; font-size:15px; font-weight:500; color:var(--success);}
+  .r-stat .l{font-size:10px; color:var(--text-tertiary); margin-top:3px; font-weight:500;}
+  .btn-preview{
+    width:100%; display:flex; align-items:center; justify-content:center; gap:8px; text-align:center; padding:13px;
+    border-radius:var(--radius-pill); background:var(--primary); color:#fff; font-family:'Plus Jakarta Sans'; font-weight:700; font-size:13.5px;
+    cursor:pointer; transition:background .15s ease;
+  }
+  .btn-preview:hover{background:var(--primary-hover);}
+  .edit-link{display:block; text-align:center; font-size:12px; font-weight:600; color:var(--text-secondary); margin-top:12px; cursor:pointer;}
+
+  .input-bar{
+    background:rgba(255,255,255,0.94); backdrop-filter:blur(16px); border-top:1px solid var(--border);
+    padding:12px 16px 18px; display:flex; gap:10px; align-items:center; flex-shrink:0;
+  }
+  .input-bar input{
+    flex:1; border:1.5px solid var(--border); background:var(--surface-sunken); border-radius:var(--radius-pill);
+    padding:12px 16px; font-family:'Inter'; font-size:13px; color:var(--text-primary); outline:none;
+  }
+  .send-btn{width:42px; height:42px; border-radius:50%; background:var(--primary); display:flex; align-items:center; justify-content:center; flex-shrink:0; cursor:pointer;}
+</style>
+</head>
+<body>
+
+<div class="canvas">
+  <div class="phone">
+    <div class="screen">
+
+      <div class="statusbar">
+        <span>9:41</span>
+        <div class="icons">
+          <svg width="17" height="11" viewBox="0 0 17 11" fill="none"><path d="M1 9L1 7M5 9L5 5M9 9L9 3M13 9L13 1" stroke="#16141C" stroke-width="1.6" stroke-linecap="round"/></svg>
+          <svg width="15" height="11" viewBox="0 0 15 11" fill="none"><path d="M1 4C4 1 11 1 14 4" stroke="#16141C" stroke-width="1.6" stroke-linecap="round"/><circle cx="7.5" cy="9" r="1.1" fill="#16141C"/></svg>
+          <svg width="24" height="12" viewBox="0 0 24 12" fill="none"><rect x="1" y="1" width="20" height="10" rx="2.5" stroke="#16141C" stroke-width="1.3"/><rect x="2.5" y="2.5" width="15" height="7" rx="1.2" fill="#16141C"/><rect x="22" y="4" width="1.6" height="4" rx="0.8" fill="#16141C"/></svg>
+        </div>
+      </div>
+
+      <div class="topbar">
+        <div class="topbar-row">
+          <div class="icon-btn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="topbar-title">
+            Build Resume with AI
+            <span class="ai-badge">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none"><path d="M12 2l1.8 5.4L19 9l-5.2 1.6L12 16l-1.8-5.4L5 9l5.2-1.6L12 2z" stroke="currentColor" stroke-width="2"/></svg>
+              AI
+            </span>
+          </div>
+        </div>
+        <div class="topbar-sub">Connect LinkedIn for an instant start, or just chat — I'll ask what I need.</div>
+      </div>
+
+      <div class="chat-area" id="chatArea">
+
+        <div class="linkedin-card">
+          <div class="li-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M4.98 3.5C4.98 4.6 4.1 5.5 3 5.5S1 4.6 1 3.5 1.9 1.5 3 1.5s1.98.9 1.98 2zM1.5 8.5h3v14h-3v-14zM8.5 8.5h2.9v1.9h.04c.4-.76 1.4-1.9 3.1-1.9 3.3 0 3.9 2.2 3.9 5v8h-3v-7.1c0-1.7 0-3.9-2.4-3.9-2.4 0-2.8 1.9-2.8 3.8v7.2h-3v-13z" fill="#fff"/></svg>
+          </div>
+          <div>
+            <div class="t">Continue with LinkedIn</div>
+            <div class="s">Import experience, education &amp; skills instantly</div>
+          </div>
+          <div class="linkedin-check">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+        </div>
+
+        <div class="or-divider">OR CHAT WITH AI</div>
+
+        <div id="messages">
+
+          <div class="msg-row">
+            <div class="avatar-ai"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 2l1.8 5.4L19 9l-5.2 1.6L12 16l-1.8-5.4L5 9l5.2-1.6L12 2z" stroke="#fff" stroke-width="1.8" stroke-linejoin="round"/></svg></div>
+            <div class="bubble ai">Hi Rafiq! I'll help you build your resume. First — what's your current or most recent job title and company?</div>
+          </div>
+          <div class="msg-row user">
+            <div class="avatar-user">RS</div>
+            <div class="bubble user">Software Engineer at Selise Digital</div>
+          </div>
+
+          <div class="msg-row">
+            <div class="avatar-ai"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 2l1.8 5.4L19 9l-5.2 1.6L12 16l-1.8-5.4L5 9l5.2-1.6L12 2z" stroke="#fff" stroke-width="1.8" stroke-linejoin="round"/></svg></div>
+            <div class="bubble ai">Great. How many years of experience do you have, and in which field?</div>
+          </div>
+          <div class="msg-row user">
+            <div class="avatar-user">RS</div>
+            <div class="bubble user">4 years, mainly in web development</div>
+          </div>
+
+          <div class="msg-row">
+            <div class="avatar-ai"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 2l1.8 5.4L19 9l-5.2 1.6L12 16l-1.8-5.4L5 9l5.2-1.6L12 2z" stroke="#fff" stroke-width="1.8" stroke-linejoin="round"/></svg></div>
+            <div class="bubble ai">What are your top skills? Tap the ones that apply, or type your own.</div>
+          </div>
+          <div class="chip-echo">
+            <span>React</span><span>Node.js</span><span>TypeScript</span><span>AWS</span>
+          </div>
+          <div class="msg-row user">
+            <div class="avatar-user">RS</div>
+            <div class="bubble user">React, Node.js, TypeScript, AWS</div>
+          </div>
+
+          <div class="msg-row">
+            <div class="avatar-ai"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 2l1.8 5.4L19 9l-5.2 1.6L12 16l-1.8-5.4L5 9l5.2-1.6L12 2z" stroke="#fff" stroke-width="1.8" stroke-linejoin="round"/></svg></div>
+            <div class="bubble ai">What's your highest degree, and where did you study?</div>
+          </div>
+          <div class="msg-row user">
+            <div class="avatar-user">RS</div>
+            <div class="bubble user">B.Sc. in Computer Science &amp; Engineering, BUET, 2020</div>
+          </div>
+
+          <div class="msg-row">
+            <div class="avatar-ai"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 2l1.8 5.4L19 9l-5.2 1.6L12 16l-1.8-5.4L5 9l5.2-1.6L12 2z" stroke="#fff" stroke-width="1.8" stroke-linejoin="round"/></svg></div>
+            <div class="bubble ai">Any certifications, projects, or achievements you'd like to highlight? (Optional)</div>
+          </div>
+          <div class="msg-row user">
+            <div class="avatar-user">RS</div>
+            <div class="bubble user">Led a job portal redesign that improved application conversion by 20%</div>
+          </div>
+
+          <div class="msg-row">
+            <div class="avatar-ai"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 2l1.8 5.4L19 9l-5.2 1.6L12 16l-1.8-5.4L5 9l5.2-1.6L12 2z" stroke="#fff" stroke-width="1.8" stroke-linejoin="round"/></svg></div>
+            <div class="bubble ai">Perfect — I have everything I need. Give me a moment to write your resume...</div>
+          </div>
+
+          <div class="result-card">
+            <div class="result-top">
+              <div class="result-ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#fff" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <div><h3>Your resume is ready</h3><span>ATS-optimized · Modern template</span></div>
+            </div>
+            <div class="result-stats">
+              <div class="r-stat"><div class="v">92%</div><div class="l">ATS Score</div></div>
+              <div class="r-stat"><div class="v">18</div><div class="l">Keywords</div></div>
+              <div class="r-stat"><div class="v">Good</div><div class="l">Strength</div></div>
+            </div>
+            <div class="btn-preview" onclick="alert('Opening Resume Preview...')">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z" stroke="#fff" stroke-width="1.8"/><circle cx="12" cy="12" r="3" stroke="#fff" stroke-width="1.8"/></svg>
+              Preview Resume
+            </div>
+            <div class="edit-link" onclick="alert('Edit your answers')">Edit my answers</div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="input-bar">
+        <input type="text" placeholder="Type your answer...">
+        <div class="send-btn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" stroke="#fff" stroke-width="1.8" stroke-linejoin="round"/></svg>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
